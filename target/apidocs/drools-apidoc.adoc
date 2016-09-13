@@ -1,0 +1,83 @@
+
+:toc:               left
+:toc-title:         Connector Summary
+:toclevels:         2
+:last-update-label!:
+:docinfo:
+:source-highlighter: coderay
+:icons: font
+
+
+= Drools Connector API Reference
+
+
+*Additional Info*
+[width="50", cols=".<60%,^40%" ]
+|======================
+| Requires Mule Enterprise License |  No icon:remove[]  {nbsp}
+| Requires Entitlement |  No icon:remove[]  {nbsp}
+| Mule Version | 3.5.0 or higher
+|======================
+
+
+== Configs
+
+
+
+== Processors
+
+---
+
+=== Execute Rules
+`<drools:execute>`
+
+
+
+
++++
+Drools is a Business Logic integration Platform.It is a collection of tools that allow us to
+separate and reason over logic and data found within business processes.
+Drools is a Rule Engine that uses the rule-based approach to implement and Expert System.
+The Rule Engine matches facts and data against Production Rules to infer conclusions which result in actions.
+A Rule Engine allows you to define "What to Do" and not "How to do it."
+Rules are pieces of knowledge often expressed as, "When some conditions occur, then do some tasks."
+Input for the connector is a DRL file containing rules and Data on which rules has to be applied.
++++
+
+
+    
+    
+==== Attributes
+[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
+|======================
+|Name |Java Type | Description | Default Value | Required
+| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
+
+
+
+| 
+filePath  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++path of DRL file containing rules to be executed+++ |  | *x*{nbsp}
+
+
+|======================
+
+==== Returns
+[cols=".^40%,.^60%", options="header"]
+|======================
+|Return Java Type | Description
+|+++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++message containing JSON object when success and corresponding error message for Exception.+++
+|======================
+
+
+
+
+
+
+
+
+
+
+
+
+
+

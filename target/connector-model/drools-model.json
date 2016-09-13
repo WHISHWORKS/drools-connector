@@ -1,0 +1,54 @@
+{
+  "minMuleVersion": "3.5.0",
+  "requiresEntitlement": false,
+  "requiresEnterpriseLicense": false,
+  "configs": [],
+  "attributes": [],
+  "processors": [
+    {
+      "isPaged": false,
+      "isBatch": false,
+      "samples": [],
+      "javaReturnType": {
+        "javaTypeName": "String",
+        "fullQualifiedJavaTypeName": "java.lang.String",
+        "isOptional": false,
+        "isRefOnly": false,
+        "isPayload": false,
+        "isComplexType": false,
+        "isEnum": false,
+        "isString": false,
+        "isHttpCallback": false,
+        "description": "message containing JSON object when success and corresponding error message for Exception."
+      },
+      "parameters": [
+        {
+          "javaTypeName": "String",
+          "fullQualifiedJavaTypeName": "java.lang.String",
+          "isOptional": false,
+          "isRefOnly": false,
+          "isPayload": false,
+          "isComplexType": false,
+          "isEnum": false,
+          "isString": true,
+          "typeMirror": "java.lang.String",
+          "isHttpCallback": false,
+          "isArrayOrListOrMap": false,
+          "javaName": "filePath",
+          "description": "path of DRL file containing rules to be executed"
+        }
+      ],
+      "apiDocUrl": "",
+      "javaName": "execute",
+      "friendlyName": "Execute Rules",
+      "description": "Drools is a Business Logic integration Platform.It is a collection of tools that allow us to\nseparate and reason over logic and data found within business processes.\nDrools is a Rule Engine that uses the rule-based approach to implement and Expert System.\nThe Rule Engine matches facts and data against Production Rules to infer conclusions which result in actions.\nA Rule Engine allows you to define \"What to Do\" and not \"How to do it.\"\nRules are pieces of knowledge often expressed as, \"When some conditions occur, then do some tasks.\"\n\nInput for the connector is a DRL file containing rules and Data on which rules has to be applied.",
+      "xsdName": "execute"
+    }
+  ],
+  "filters": [],
+  "transformers": [],
+  "sources": [],
+  "javaName": "DroolsConnector",
+  "friendlyName": "Drools",
+  "xsdName": "drools"
+}

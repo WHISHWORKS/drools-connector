@@ -1,0 +1,9 @@
+org.mule.modules.drools
+org.mule.modules.drools.config
+org.mule.modules.drools.generated.adapter
+org.mule.modules.drools.generated.adapters
+org.mule.modules.drools.generated.agents
+org.mule.modules.drools.generated.config
+org.mule.modules.drools.generated.devkit
+org.mule.modules.drools.generated.processors
+org.mule.tooling.ui.contribution
