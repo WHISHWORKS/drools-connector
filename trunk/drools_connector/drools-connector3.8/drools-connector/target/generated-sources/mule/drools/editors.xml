@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" url="http://www.mulesoft.org/schema/mule/drools" prefix="drools">
+  <global-cloud-connector versions="[3.5.0,8.0.0]" caption="Drools" description="" icon="" localId="parentConfig" image="" abstract="true" extends="http://www.mulesoft.org/schema/mule/drools/abstractDroolsConnectorGeneric"></global-cloud-connector>
+  <global-cloud-connector versions="[3.5.0,8.0.0]" caption="Drools" description="Global Drools configuration information." icon="icons/theme.classic/drools-connector-small.png" localId="config" image="icons/theme.classic/drools-connector-large.png" abstract="false" extends="http://www.mulesoft.org/schema/mule/drools/parentConfig" connectivityTesting="off" metaData="static" metaDataKeyDisplay="DISPLAY_NAME" supportsUserDefinedMetaData="false">
+    <attribute-category caption="General" description="Drools configuration properties.">
+      <group id="droolsGenericProperties" caption="Basic Settings">
+        <name name="name" caption="Name" description="Give a name to this configuration so it can be later referenced by config-ref." required="true"></name>
+      </group>
+    </attribute-category>
+  </global-cloud-connector>
+  <cloud-connector caption="Abstractdroolsconnectorgeneric" description="Interact with Drools." icon="icons/theme.classic/drools-connector-small.png" localId="abstractDroolsConnectorGeneric" image="icons/theme.classic/drools-connector-large.png" abstract="true">
+    <attribute-category caption="General" description="General.">
+      <group id="abstractDroolsConnectorGeneric" caption="Basic Settings"></group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector versions="[3.5.0,8.0.0]" aliasId="org.mule.tooling.ui.modules.core.pattern.drools" caption="Drools" description="" icon="icons/theme.classic/drools-connector-small.png" localId="drools-connector" image="icons/theme.classic/drools-connector-large.png" extends="http://www.mulesoft.org/schema/mule/drools/abstractDroolsConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="droolsConnectorGeneric" caption="Basic Settings">
+        <modeSwitch alwaysCombo="true" name="Drools operations to execute" caption="Operation" description="Operation.">
+          <no-operation abstractElement="http://www.mulesoft.org/schema/mule/drools/abstractDroolsConnectorGeneric" versions="[3.5.0,8.0.0]" connector-name="processor"></no-operation>
+          <mode modeId="http://www.mulesoft.org/schema/mule/drools/execute" modeLabel="Execute Rules"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Execute Rules" icon="icons/theme.classic/drools-connector-small.png" localId="execute" image="icons/theme.classic/drools-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/drools/abstractDroolsConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <file name="filePath" caption="File Path" description="Path of DRL file containing rules to be executed." required="true" javaType="java.lang.String"></file>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+</namespace>
