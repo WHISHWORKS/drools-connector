@@ -22,7 +22,11 @@ import org.mule.api.annotations.display.Path;
 import org.mule.modules.drools.config.ConnectorConfig;
 
 import com.google.gson.Gson;
-
+/**
+ * 
+ * @author Monica,Kishan Whishworks.
+ * @Date   September 5th , 2016
+ */
 @Connector(name="drools", friendlyName="Drools")
 public class DroolsConnector {
 
