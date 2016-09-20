@@ -50,5 +50,6 @@
   "sources": [],
   "javaName": "DroolsConnector",
   "friendlyName": "Drools",
+  "description": "",
   "xsdName": "drools"
 }
