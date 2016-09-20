@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.drools.KnowledgeBase;
 import org.drools.KnowledgeBaseFactory;
 import org.drools.builder.KnowledgeBuilder;
@@ -15,23 +14,18 @@ import org.drools.builder.ResourceType;
 import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.mule.RequestContext;
-import org.mule.api.annotations.Config;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.display.Path;
-import org.mule.modules.drools.config.ConnectorConfig;
-
 import com.google.gson.Gson;
 /**
  * 
- * @author Monica,Kishan Whishworks.
+ * @author Kishan, Monica 
  * @Date   September 5th , 2016
  */
+
 @Connector(name="drools", friendlyName="Drools")
 public class DroolsConnector {
-
-//    @Config
-//    ConnectorConfig config;
 
 	/**
      *  Drools is a Business Logic integration Platform.It is a collection of tools that allow us to 
@@ -51,18 +45,34 @@ public class DroolsConnector {
     	try{ 
         	System.out.println("filePath-----" + filePath); 
         	Gson gson = new Gson();
-        	System.out.println(RequestContext.getEventContext().getMessage().getPayload());
-        	Object object = RequestContext.getEventContext().getMessage().getPayload();
-        	System.out.println("request object===" +gson.toJson(object));  
+        	Object object= new Object();
+        	if ( RequestContext.getEventContext( ) != null && RequestContext.getEventContext( ).getMessage( ) != null ){
+	        	System.out.println(RequestContext.getEventContext().getMessage().getPayload());
+	        	object = RequestContext.getEventContext().getMessage().getPayload();
+        	}else{
+        		throw new IllegalArgumentException( "Cannot access context implicitly" );
+        	}
+        	try {
+        		System.out.println("request object===" +gson.toJson(object));  
+			} catch (Exception e) {
+				throw new IllegalArgumentException("Input are not getting read properly");
+			}
         	KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
 	        kbuilder.add(ResourceFactory.newInputStreamResource(new FileInputStream(new File(filePath))), ResourceType.DRL);
 	        KnowledgeBuilderErrors errors = kbuilder.getErrors();
+	        Boolean errorDescFlag=true;
 	        if(errors.size() > 0){
 	        	for (KnowledgeBuilderError error: errors) {
 	                System.err.println(error);
-	             }
-	             throw new IllegalArgumentException("DRL File Error");
+	                if(error.getMessage().contains("Rule Compilation error"))
+	                	errorDescFlag=false;
+	        		}
+	        	if(!errorDescFlag)
+	        		throw new IllegalArgumentException("Rule File Syntax error");
+	        	else
+	        		throw new IllegalArgumentException("DRL File Error");
 	        }
+	        
 	        KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase(); 
 	        kbase.addKnowledgePackages(kbuilder.getKnowledgePackages());
 	        StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();	
@@ -74,22 +84,11 @@ public class DroolsConnector {
 	        	resultList.add(resobj);
 	        }
 	        System.out.println(gson.toJson(resultList));
-	        if(resultList.size() == 1)
-	        	return "input data doesnot satisfy given rules";
 	       return gson.toJson(resultList);
         }catch(Exception e){
         	e.printStackTrace();
         	return "ERROR OCCURED: " +e.getMessage();
         }
-        
     }
-
-//    public ConnectorConfig getConfig() {
-//        return config;
-//    }
-//
-//    public void setConfig(ConnectorConfig config) {
-//        this.config = config;
-//    }
 
 }

@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * 
  */
 @SuppressWarnings("all")
-@Generated(value = "Mule DevKit Version 3.9.0", date = "2016-09-13T05:03:01+05:30", comments = "Build UNNAMED.2793.f49b6c7")
+@Generated(value = "Mule DevKit Version 3.9.0", date = "2016-09-20T12:14:03+05:30", comments = "Build UNNAMED.2793.f49b6c7")
 public class DefaultSplashScreenAgent implements Agent, MuleContextAware, SplashScreenAgent
 {
 
