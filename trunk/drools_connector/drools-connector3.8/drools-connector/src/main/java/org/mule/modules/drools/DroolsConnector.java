@@ -18,12 +18,12 @@ import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.display.Path;
 import com.google.gson.Gson;
+
 /**
  * 
  * @author Kishan, Monica 
  * @Date   September 5th , 2016
  */
-
 @Connector(name="drools", friendlyName="Drools")
 public class DroolsConnector {
 
@@ -45,45 +45,58 @@ public class DroolsConnector {
     	try{ 
         	System.out.println("filePath-----" + filePath); 
         	Gson gson = new Gson();
-        	Object object= new Object();
+        	ArrayList objectArray= null;
+        	//Object object= new Object();
+        	List<Object> resultList = new ArrayList<>();
         	if ( RequestContext.getEventContext( ) != null && RequestContext.getEventContext( ).getMessage( ) != null ){
 	        	System.out.println(RequestContext.getEventContext().getMessage().getPayload());
-	        	object = RequestContext.getEventContext().getMessage().getPayload();
+	        	objectArray =(ArrayList) RequestContext.getEventContext().getMessage().getPayload();
+	        	for (Object object : objectArray) {
+	        		try {
+	            		System.out.println("request object===" +gson.toJson(object));  
+	    			} catch (Exception e) {
+	    				throw new IllegalArgumentException("Input are not getting read properly");
+	    			}
+	            	KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+	    	        kbuilder.add(ResourceFactory.newInputStreamResource(new FileInputStream(new File(filePath))), ResourceType.DRL);
+	    	        KnowledgeBuilderErrors errors = kbuilder.getErrors();
+	    	        Boolean errorDescFlag=true;
+	    	        if(errors.size() > 0){
+	    	        	for (KnowledgeBuilderError error: errors) {
+	    	                System.err.println(error);
+	    	                if(error.getMessage().contains("Rule Compilation error"))
+	    	                	errorDescFlag=false;
+	    	        		}
+	    	        	if(!errorDescFlag)
+	    	        		throw new IllegalArgumentException("Rule File Syntax error");
+	    	        	else
+	    	        		throw new IllegalArgumentException("DRL File Error");
+	    	        }
+	    	        
+	    	        KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase(); 
+	    	        kbase.addKnowledgePackages(kbuilder.getKnowledgePackages());
+	    	        StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();	
+	    	        ksession.insert(object);
+	    	        ksession.fireAllRules();
+	    	        System.out.println("After firing rules");
+	    	       // List<Object> resultList = new ArrayList<>();
+	    	        if(ksession.getObjects().size() > 1){
+	    	        	for(Object resobj: ksession.getObjects()){
+	    		        	System.out.println("object"+object.toString()+"...resobj"+resobj.toString());
+	    	        		if(resobj != object){
+	    		        		System.out.println("in the if condition"+resobj.toString());
+	    	        			resultList.add(resobj);
+	    		        	}
+	    		        }
+	    	        }
+	    	        
+	    	        System.out.println(gson.toJson(resultList));
+				}
+	        	 
         	}else{
         		throw new IllegalArgumentException( "Cannot access context implicitly" );
         	}
-        	try {
-        		System.out.println("request object===" +gson.toJson(object));  
-			} catch (Exception e) {
-				throw new IllegalArgumentException("Input are not getting read properly");
-			}
-        	KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
-	        kbuilder.add(ResourceFactory.newInputStreamResource(new FileInputStream(new File(filePath))), ResourceType.DRL);
-	        KnowledgeBuilderErrors errors = kbuilder.getErrors();
-	        Boolean errorDescFlag=true;
-	        if(errors.size() > 0){
-	        	for (KnowledgeBuilderError error: errors) {
-	                System.err.println(error);
-	                if(error.getMessage().contains("Rule Compilation error"))
-	                	errorDescFlag=false;
-	        		}
-	        	if(!errorDescFlag)
-	        		throw new IllegalArgumentException("Rule File Syntax error");
-	        	else
-	        		throw new IllegalArgumentException("DRL File Error");
-	        }
-	        
-	        KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase(); 
-	        kbase.addKnowledgePackages(kbuilder.getKnowledgePackages());
-	        StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();	
-	        ksession.insert(object);
-	        ksession.fireAllRules();
-	        System.out.println("After firing rules");
-	        List<Object> resultList = new ArrayList<>();
-	        for(Object resobj: ksession.getObjects()){
-	        	resultList.add(resobj);
-	        }
-	        System.out.println(gson.toJson(resultList));
+        	
 	       return gson.toJson(resultList);
         }catch(Exception e){
         	e.printStackTrace();
