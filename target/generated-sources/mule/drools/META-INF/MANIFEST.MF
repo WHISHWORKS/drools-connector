@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Drools
 Bundle-SymbolicName: org.mule.tooling.ui.contribution.drools.3.5.0;singleton:=true
-Bundle-Version: 1.0.0.201609201214
+Bundle-Version: 1.0.0.201609211229
 Bundle-Activator: org.mule.tooling.ui.contribution.DroolsActivator
 Bundle-Vendor: Kishan, Monica
 Require-Bundle: org.eclipse.ui,
