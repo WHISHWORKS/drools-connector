@@ -20,7 +20,13 @@ import org.mule.api.annotations.display.Path;
 import com.google.gson.Gson;
 
 /**
- * 
+ *  Drools is a Business Logic integration Platform.It is a collection of tools that allow us to 
+     *  separate and reason over logic and data found within business processes.
+     *  Drools is a Rule Engine that uses the rule-based approach to implement and Expert System. 
+     *  The Rule Engine matches facts and data against Production Rules to infer conclusions which result in actions.  
+     *  A Rule Engine allows you to define "What to Do" and not "How to do it."
+     *  Rules are pieces of knowledge often expressed as, "When some conditions occur, then do some tasks."
+ * Input for the connector is a DRL file containing rules and Data on which rules has to be applied.
  * @author Kishan, Monica 
  * @Date   September 5th , 2016
  */
@@ -28,17 +34,15 @@ import com.google.gson.Gson;
 public class DroolsConnector {
 
 	/**
-     *  Drools is a Business Logic integration Platform.It is a collection of tools that allow us to 
-     *  separate and reason over logic and data found within business processes.
-     *  Drools is a Rule Engine that uses the rule-based approach to implement and Expert System. 
-     *  The Rule Engine matches facts and data against Production Rules to infer conclusions which result in actions.  
-     *  A Rule Engine allows you to define "What to Do" and not "How to do it."
-     *  Rules are pieces of knowledge often expressed as, "When some conditions occur, then do some tasks."
+     * 
+     *  Execute Rules method takes DRL file containing rules to be executed.It takes Data and execute rules on the data.Based on the conditions satisfied 
+     *  by data in DRL file respective actions are performed.
+     *  If there is an error it throws an exception.
+     *  Input is given as list of objects.
      *   
-     *  Input for the connector is a DRL file containing rules and Data on which rules has to be applied.
-     *   
-     * @param filePath path of DRL file containing rules to be executed
+     * @param filePath path of DRL file containing rules to be executed.DRL file contains rules which are applied on input data and based on rules corresponding actions are performed.
      * @return message containing JSON object when success and corresponding error message for Exception.
+     * @throws exception Exception for any error in DRL file.
      */
     @Processor(friendlyName="Execute Rules")
     public String execute(@Path String filePath) {
