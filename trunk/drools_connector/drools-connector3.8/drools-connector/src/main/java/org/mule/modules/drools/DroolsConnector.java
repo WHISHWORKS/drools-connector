@@ -2,6 +2,7 @@ package org.mule.modules.drools;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.mule.RequestContext;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.display.Path;
+import org.mule.modules.drools.error.DroolsError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +52,7 @@ public class DroolsConnector {
      */
 	private static Logger logger = LoggerFactory.getLogger(DroolsConnector.class);
     @Processor(friendlyName="Execute Rules")
-    public String execute(@Path String filePath) {
+    public String execute(@Path String filePath) throws DroolsError{
     	try{ 
         	System.out.println("filePath-----" + filePath); 
         	Gson gson = new Gson();
@@ -64,11 +66,17 @@ public class DroolsConnector {
 	        		try {
 	            		System.out.println("request object===" +gson.toJson(object));  
 	    			} catch (Exception e) {
-	    				logger.error(e.getMessage());
-	    				throw new IllegalArgumentException("Input are not getting read properly");
+	    				logger.error("error in processing----",e);
+	    				throw new DroolsError("Input are not getting read properly");
 	    			}
 	            	KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
-	    	        kbuilder.add(ResourceFactory.newInputStreamResource(new FileInputStream(new File(filePath))), ResourceType.DRL);
+	            	try {
+	            		kbuilder.add(ResourceFactory.newInputStreamResource(new FileInputStream(new File(filePath))), ResourceType.DRL);
+	    			} catch (FileNotFoundException e) {
+	    				logger.error("error in processing----",e);
+	    				throw new DroolsError("File Not Found");
+	    			}
+	            	
 	    	        KnowledgeBuilderErrors errors = kbuilder.getErrors();
 	    	        Boolean errorDescFlag=true;
 	    	        if(errors.size() > 0){
@@ -78,9 +86,9 @@ public class DroolsConnector {
 	    	                	errorDescFlag=false;
 	    	        		}
 	    	        	if(!errorDescFlag)
-	    	        		throw new IllegalArgumentException("Rule File Syntax error");
+	    	        		throw new DroolsError("Rule File Syntax error");
 	    	        	else
-	    	        		throw new IllegalArgumentException("DRL File Error");
+	    	        		throw new DroolsError("DRL File Error");
 	    	        }
 	    	        
 	    	        KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase(); 
@@ -104,12 +112,13 @@ public class DroolsConnector {
 				}
 	        	 
         	}else{
-        		throw new IllegalArgumentException( "Cannot access context implicitly" );
+        		throw new DroolsError( "Cannot access context implicitly" );
         	}
 	       return gson.toJson(resultList);
-        }catch(Exception e){
-        	logger.error(e.getMessage());
-        	return "ERROR OCCURED: " +e.getMessage();
+        }catch(DroolsError de){
+        	logger.error("error in processing----",de);
+        	//return "ERROR OCCURED: " +e.getMessage();
+        	throw de;
         }
     }
 
