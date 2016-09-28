@@ -5,6 +5,7 @@ org\mule\modules\drools\generated\config\DroolsNamespaceHandler.class
 org\mule\modules\drools\generated\config\ExecuteDefinitionParser.class
 org\mule\modules\drools\generated\adapter\PoolManager.class
 org\mule\modules\drools\config\ConnectorConfig.class
+org\mule\modules\drools\error\DroolsError.class
 org\mule\tooling\ui\contribution\DroolsActivator.class
 org\mule\modules\drools\generated\adapters\DroolsConnectorProcessAdapter$1.class
 org\mule\modules\drools\DroolsConnector.class

@@ -27,7 +27,7 @@
   <cloud-connector returnType="java.lang.String" caption="Execute Rules" icon="icons/theme.classic/drools-connector-small.png" localId="execute" image="icons/theme.classic/drools-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/drools/abstractDroolsConnectorGeneric" metaData="static">
     <attribute-category caption="General" description="General.">
       <group id="general" caption="General">
-        <file name="filePath" caption="File Path" description="Path of DRL file containing rules to be executed." required="true" javaType="java.lang.String"></file>
+        <file name="filePath" caption="File Path" description="" required="true" javaType="java.lang.String"></file>
       </group>
     </attribute-category>
   </cloud-connector>
