@@ -2,7 +2,7 @@
 <?artifactRepository version='1.1.0'?>
 <repository name='file:/D:/Softwares/training/drools-connector/target/update-site/ - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
   <properties size='2'>
-    <property name='p2.timestamp' value='1474441161496'/>
+    <property name='p2.timestamp' value='1475062436421'/>
     <property name='p2.compressed' value='false'/>
   </properties>
   <mappings size='3'>
@@ -11,19 +11,19 @@
     <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
   </mappings>
   <artifacts size='2'>
-    <artifact classifier='org.eclipse.update.feature' id='org.mule.tooling.ui.extension.drools-connector.3.5.0' version='1.0.0.201609211229'>
+    <artifact classifier='osgi.bundle' id='org.mule.tooling.ui.contribution.drools.3.5.0' version='1.0.0.201609281703'>
+      <properties size='3'>
+        <property name='artifact.size' value='628173'/>
+        <property name='download.size' value='628173'/>
+        <property name='download.md5' value='f77fa187e3ded38fd6b9b04ae2318702'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.mule.tooling.ui.extension.drools-connector.3.5.0' version='1.0.0.201609281703'>
       <properties size='4'>
         <property name='artifact.size' value='644'/>
         <property name='download.size' value='644'/>
-        <property name='download.md5' value='68f93f21426ec97c9ba4f209c56394ee'/>
+        <property name='download.md5' value='4b3a11dcbe04f70e28aaffa74c2c4994'/>
         <property name='download.contentType' value='application/zip'/>
-      </properties>
-    </artifact>
-    <artifact classifier='osgi.bundle' id='org.mule.tooling.ui.contribution.drools.3.5.0' version='1.0.0.201609211229'>
-      <properties size='3'>
-        <property name='artifact.size' value='629260'/>
-        <property name='download.size' value='629260'/>
-        <property name='download.md5' value='8a340ce85a69e2077fd24228c253a249'/>
       </properties>
     </artifact>
   </artifacts>
