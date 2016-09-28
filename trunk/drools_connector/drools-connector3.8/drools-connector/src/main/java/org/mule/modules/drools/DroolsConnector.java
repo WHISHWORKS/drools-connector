@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.drools.KnowledgeBase;
 import org.drools.KnowledgeBaseFactory;
 import org.drools.builder.KnowledgeBuilder;
@@ -17,6 +18,9 @@ import org.mule.RequestContext;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.display.Path;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 
 /**
@@ -44,6 +48,7 @@ public class DroolsConnector {
      * @return message containing JSON object when success and corresponding error message for Exception.
      * @throws exception Exception for any error in DRL file.
      */
+	private static Logger logger = LoggerFactory.getLogger(DroolsConnector.class);
     @Processor(friendlyName="Execute Rules")
     public String execute(@Path String filePath) {
     	try{ 
@@ -59,6 +64,7 @@ public class DroolsConnector {
 	        		try {
 	            		System.out.println("request object===" +gson.toJson(object));  
 	    			} catch (Exception e) {
+	    				logger.error(e.getMessage());
 	    				throw new IllegalArgumentException("Input are not getting read properly");
 	    			}
 	            	KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
@@ -100,10 +106,9 @@ public class DroolsConnector {
         	}else{
         		throw new IllegalArgumentException( "Cannot access context implicitly" );
         	}
-        	
 	       return gson.toJson(resultList);
         }catch(Exception e){
-        	e.printStackTrace();
+        	logger.error(e.getMessage());
         	return "ERROR OCCURED: " +e.getMessage();
         }
     }
