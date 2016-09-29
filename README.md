@@ -7,7 +7,7 @@ Facts are stored in a working memory (something like an in-memory database). A f
 Rules are defined in a knowledge base. A rule consists of conditions (which typically depend on facts in the working memory) and actions which are executed when the conditions are true (similar to an "if-then" statement). Rules are pieces of knowledge often expressed as, "When some conditions occur, then do some tasks. The action executed by a rule may change facts in the working memory which then cause other rules to fire.	
 
 # Mule supported versions
-Mule 3.8.x, 3.7.x
+Mule 3.8.1
 
 # Drools supported versions
 Drools 6.4.0 and above.
