@@ -23,7 +23,7 @@ Then Right Click on the project folder Anypoint Connector > Install or update.
 The Drools Connector will be installed and it appears in the Connectors pallette on the right side of Anypoint Studio. You can now use your connector in your application by drag and drop from the pallette.
 
 #Usage
-This connector can be used in any application. After drag and drop, We need to select "execute operation" from operation dropdown and then we need to provide path for .drl file. Data can be provided from db, file or payload etc. And After firing all rules(given inside .drl file), it will give output as JSON format. We need to format that output accordding to our reqquirement such as saving to file or another table in db etc. 
+This connector can be used in any application. After drag and drop, We need to select "execute operation" from operation dropdown and then we need to provide path for .drl file. Input can be provided from db, file or payload etc. Input data should be provided as JSON Array to Drools Connector. And After firing all rules(given inside .drl file), it will give output as JSON format. We need to format that output accordding to our reqquirement such as saving to file or another table in db etc. 
 
 # Reporting Issues
 We use GitHub:Issues for tracking issues with this connector. You can report new issues at this link http://github.com/mulesoft/drools/issues.
